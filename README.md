@@ -1,58 +1,26 @@
-# About this implementation
 ## Quick start
 
 - compile with: 
 ```bash
-    $ gcc -o main main.c -lm
+    $ cd ./src
+    $ gcc -o main main.c
 ```
 
-## Main strcuture
-- Linked list Node:
+# What is a linked-List
 
-```C
-    typedef struct Node {
-	T    data;
-	Node *Next;
-    } Node;
-```
+- A linked list is a dynamic data structure that consists of a collection of Nodes, each Node has 2 to 3 field, the first field is its data, the second is a pointer to the next Node in the list and also it you want backward traversal then you might add a prev pointer.
 
-## Functions
 
-- `add(Node *Head, int data)`: adds a new node.
-```
-    Before calling add: (0) -> (NULL)
-    After calling add with head of the list and data 1: (1) -> (0) -> (NULL)
-    Note that the head changed. so it is the new added element, to keep track we return the new head.
-```
-
-- `Find(Node *Head, int data)`: linearly Searching the list for the Node that has `data` as its data field, return NULL if not found!
-
-- `DeleteBydata(Node *Head, int data)`: Deletes the Node that has `data` as its data field. 0 on success and 1 on failure.
-
-- `DeleteByIndex(Node *Head, int i)`: deletes the i-th Node from the list. if i == 0 we just remove the head and make head->Next the new head. 0 on success and 1 on failure.
-
-- `Insert(Node *Head, int data, int i)`: Insert Node with data in the i-th positionj, if it was successfully added it returns the inserted Node, if not returns NULL.
-
-- `At(Node *Head, size_t i)`: get Node in i-th position, NULL returned if i is an invalid index.
-
-- `print(Node *Head)`: Traverses the linked list from Head to NULL.
-
-```
 Example:
-    (0) -> (1) -> (2) -> (3) -> (NULL)
+```txt
+    (3) -> (48) -> NULL
 ```
 
-# WHAT IS A LINKED LIST :)
+- this is a linked list that has 2 Nodes in total, (3) and (48), its head is (3) and it points to its neighbor (48) which also points to the end of the list which is normally marked by NULL. 
 
-- A linked list is a non-sequential collection of data items. It is a dynamic data structure. 
-For every data item in a linked list, there is an associated pointer that would give the 
-memory location of the next data item in the linked list.
+- note: (3) does not point to the value of (48) as a Node but as a *Node (its address in the (heap) memory).
 
-- The data items in the linked list are not in consecutive memory locations. They may be 
-anywhere, but the accessing of these data items is easier as each data item contains 
-the address of the next data item.
-
-# ADVANTAGES OF LINKED LISTS
+# advantages of linked lists
 
 1. Linked lists are dynamic data structures. i.e., they can grow or shrink during 
 the execution of a program.
@@ -69,11 +37,12 @@ from the given position.
 
 1. It consumes more space because every node requires a additional pointer to 
 store address of the next node.
+
 2. Searching a particular element in list is difficult and also time consumin
 
 # TYPES
 
-NOTE: T => int, Float, char, size_t..
+Note that T is just a type, so it can be anything.
 
 1. Single Linked List.
 ```C
@@ -107,22 +76,47 @@ NOTE: T => int, Float, char, size_t..
 
     } Node;
 ```
+# About this implementation
 
-# DIFFERENCE BETWEEN ARRAY AND LINKED LISTS.
+## Main strcuture
 
-----------------------------------------------------------------------------------------------------|
-		      ARRAYS   	                |                    LINKEDLISTS                    |
-----------------------------------------------------------------------------------------------------|
-Size of an array is fixed.	                | Size of a list is not fixed.                      |
-                         			|                                                   |
-Memory is allocated from stack.			| Memory is allocated from heap.                    |
-						|                                                   |
-It is necessary to specify the number of        | specifying the size is not required.              |
-elements during declaration.			|                                                   |
-						|                                                   |
-It occupies less memory.			| it requires more memory.                          |
-						|                                                   |
-Insertion are expansive    	                | Insertion are mostly carried easily.              |
-						|                                                   |
-Deletions are not possible	                | Deletions are possible.                           |
------------------------------------------------------------------------------------------------------
+- Linked list Node:
+```C
+    typedef struct Node {
+	T    data;
+	Node *Next;
+    } Node;
+```
+
+## Functions
+
+- `add(Node *Head, int data)`: adds a new node.
+```
+    Before calling add: 
+	(0) -> (NULL)
+    
+    After calling add with head of the list and data 1: 
+	(1) -> (0) -> (NULL)
+    
+    Note that the head changed. so it is the new added element, to keep track we return the new head.
+```
+
+- `Find(Node *Head, int data)`: linearly Searching the list for the Node that has `data` as its data field, return NULL if not found!
+
+- `DeleteBydata(Node *Head, int data)`: Deletes the Node that has `data` as its data field. 0 on success and 1 on failure.
+
+- `DeleteByIndex(Node *Head, int i)`: deletes the i-th Node from the list. if i == 0 we just remove the head and make head->Next the new head. 0 on success and 1 on failure.
+
+- `Insert(Node *Head, int data, int i)`: Insert Node with data in the i-th positionj, if it was successfully added it returns the inserted Node, if not returns NULL.
+
+- `At(Node *Head, size_t i)`: get Node in i-th position, NULL returned if i is an invalid index.
+
+- `print(Node *Head)`: Traverses the linked list from Head to NULL.
+
+```
+Example:
+    (0) -> (1) -> (2) -> (3) -> (NULL)
+```
+
+
+

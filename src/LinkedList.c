@@ -1,25 +1,21 @@
 /*
+    malloc() is a system function which allocates a block of memory in the "heap" and
+    returns a pointer to the new block. The prototype of malloc() and other heap functions 
+    are in stdlib.h. malloc() returns NULL if it cannot fulfill the request. It is defined by:
+	void *malloc (number_of_bytes)
+    Since a void * is returned the C standard states that this pointer can be converted to 
+    any type. For example,
+	char *cp;
+	cp = (char *) malloc (100);
 
+    Attempts to get 100 bytes and assigns the starting address to cp. We can also use the 
+    sizeof() function to specify the number of bytes. For example,
 
-malloc() is a system function which allocates a block of memory in the "heap" and
-returns a pointer to the new block. The prototype of malloc() and other heap functions 
-are in stdlib.h. malloc() returns NULL if it cannot fulfill the request. It is defined by:
-    void *malloc (number_of_bytes)
-Since a void * is returned the C standard states that this pointer can be converted to 
-any type. For example,
-    char *cp;
-    cp = (char *) malloc (100);
-
-Attempts to get 100 bytes and assigns the starting address to cp. We can also use the 
-sizeof() function to specify the number of bytes. For example,
-
-int *ip;
-ip = (int *) malloc (100*sizeof(int));
-
-Linked lists are dynamic data structures. i.e., they can grow or shrink during 
-the execution of a program.
+    int *ip;
+    ip = (int *) malloc (100*sizeof(int));
 
 */
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -209,44 +205,3 @@ void print(Node *Head)
     }
 }
 
-int main(void) 
-{
-    Node *Head = malloc(sizeof(Node));
-    
-    Head->data = 10;
-    Head->Next = NULL;
-     
-    Head = add(Head, 20);    
-    Head = add(Head, 30);
-    Head = add(Head, 40);
-    Head = add(Head, 30);
-    
-    // printing.
-    print(Head);
-    Node *n = At(Head, 10);
-    if(n != NULL) 
-    {
-	printf("%d\n", n->data);
-    } else {
-	printf("Not found!\n");
-    }
-    DeleteByIndex(Head, 0);
-    // Freeing the list.
-    
-    print(Head);
-    
-    DeleteByIndex(Head, 3);
-    print(Head);
-
-    DeleteByIndex(Head, 1);
-    Insert(Head, 777, 1);
-    
-    print(Head);
-    
-    Insert(Head, 911, 2);
-    
-    print(Head);
-    free(Head);
-
-    return 0;
-}

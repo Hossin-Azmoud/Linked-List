@@ -1,3 +1,47 @@
+# About this implementation
+## Quick start
+
+- compile with: 
+```bash
+    $ gcc -o main main.c -lm
+```
+
+## Main strcuture
+- Linked list Node:
+
+```C
+    typedef struct Node {
+	T    data;
+	Node *Next;
+    } Node;
+```
+
+## Functions
+
+- `add(Node *Head, int data)`: adds a new node.
+```
+    Before calling add: (0) -> (NULL)
+    After calling add with head of the list and data 1: (1) -> (0) -> (NULL)
+    Note that the head changed. so it is the new added element, to keep track we return the new head.
+```
+
+- `Find(Node *Head, int data)`: linearly Searching the list for the Node that has `data` as its data field, return NULL if not found!
+
+- `DeleteBydata(Node *Head, int data)`: Deletes the Node that has `data` as its data field. 0 on success and 1 on failure.
+
+- `DeleteByIndex(Node *Head, int i)`: deletes the i-th Node from the list. if i == 0 we just remove the head and make head->Next the new head. 0 on success and 1 on failure.
+
+- `Insert(Node *Head, int data, int i)`: Insert Node with data in the i-th positionj, if it was successfully added it returns the inserted Node, if not returns NULL.
+
+- `At(Node *Head, size_t i)`: get Node in i-th position, NULL returned if i is an invalid index.
+
+- `print(Node *Head)`: Traverses the linked list from Head to NULL.
+
+```
+Example:
+    (0) -> (1) -> (2) -> (3) -> (NULL)
+```
+
 # WHAT IS A LINKED LIST :)
 
 - A linked list is a non-sequential collection of data items. It is a dynamic data structure. 

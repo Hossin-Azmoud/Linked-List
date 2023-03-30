@@ -1,26 +1,8 @@
-/*
-    malloc() is a system function which allocates a block of memory in the "heap" and
-    returns a pointer to the new block. The prototype of malloc() and other heap functions 
-    are in stdlib.h. malloc() returns NULL if it cannot fulfill the request. It is defined by:
-	void *malloc (number_of_bytes)
-    Since a void * is returned the C standard states that this pointer can be converted to 
-    any type. For example,
-	char *cp;
-	cp = (char *) malloc (100);
-
-    Attempts to get 100 bytes and assigns the starting address to cp. We can also use the 
-    sizeof() function to specify the number of bytes. For example,
-
-    int *ip;
-    ip = (int *) malloc (100*sizeof(int));
-
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct Node Node;
-
 typedef struct Node {
     int  data;
     Node *Next;
@@ -42,13 +24,13 @@ Node *Find(Node *Head, int d)
 
     while(curr != NULL)
     {
-	if(curr->data == d)
-	{
-	    return curr;
-	}
+		if(curr->data == d)
+		{
+			return curr;
+		}
 
-	curr = curr->Next;
-    }
+		curr = curr->Next;
+	}
 
     return NULL;
 }
@@ -60,21 +42,21 @@ int DeleteBydata(Node *Head, int data)
 
     while(curr != NULL)
     {
-	if(curr->data == data)
-	{
-	    if(Prev != NULL)
-	    {
-		*Prev->Next = *curr->Next;
-		return 0;
-	    }
-	    
-	    *Head = *curr->Next;
+		if(curr->data == data)
+		{
+			if(Prev != NULL)
+			{
+				*Prev->Next = *curr->Next;
+				return 0;
+			}
+			
+			*Head = *curr->Next;
 
-	    return 0;
-	}
+			return 0;
+		}
 
-	Prev = curr;
-	curr = curr->Next;
+		Prev = curr;
+		curr = curr->Next;
     }
 
     return 1;
@@ -89,37 +71,37 @@ int DeleteByIndex(Node *Head, int i)
 
     if(Head == NULL)
     {
-	return 1;
+		return 1;
     }
 
     if(i == 0)
     {
-	*Head = *curr->Next;
-	return 0;
+		*Head = *curr->Next;
+		return 0;
     }
 
         
     while(curr != NULL)
     {
 	
-	if(i - index == 0)
-	{
-	    if(Prev != NULL)
-	    {
-		Prev->Next = curr->Next;
-	    }
+		if(i - index == 0)
+		{
+			if(Prev != NULL)
+			{
+				Prev->Next = curr->Next;
+			}
 
-	    break;
-	}
+			break;
+		}
 
-	Prev = curr;
-	curr = curr->Next;
-	index++;
+		Prev = curr;
+		curr = curr->Next;
+		index++;
     }
     
     if(i - index > 0)
     {
-	return 1;
+		return 1;
     }
 
     return 0;
@@ -135,23 +117,23 @@ Node *Insert(Node *Head, int data, int i)
      
     if(i == 0)
     {
-	new = add(Head, data);
-	return new;
+		new = add(Head, data);
+		return new;
     }
 
     while(curr != NULL && i > 0)
     {
-	i--;
-	Prev = curr;
-	curr = curr->Next;
+		i--;
+		Prev = curr;
+		curr = curr->Next;
     }
     
     if(i == 0)
     {
-	new->data  =  data;
-	new->Next  =  curr;
-	Prev->Next =  new;
-	return new;
+		new->data  =  data;
+		new->Next  =  curr;
+		Prev->Next =  new;
+		return new;
     }
     
     return NULL;
@@ -162,7 +144,7 @@ Node *At(Node *Head, size_t i)
 {
     if(Head == NULL)
     {
-	return NULL;
+		return NULL;
     }
 
     Node *curr = Head; 
@@ -171,37 +153,84 @@ Node *At(Node *Head, size_t i)
     while(curr != NULL)
     {
 	
-	if(i - index == 0)
-	{
-	    break;
-	}
+		if(i - index == 0)
+		{
+			break;
+		}
 
-	curr = curr->Next;
-	index++;
+		curr = curr->Next;
+		index++;
     }
     
     if(i - index > 0)
     {
-	return NULL;
-    }
+		return NULL;
+	}
 
     return curr;
 }
 
-void print(Node *Head)
+void pop_head(Node *Head)
 {
-    Node *curr = Head;    
-    
-    while(curr != NULL)
-    {
-	if(curr->Next == NULL)
-	{
-	   printf("%d -> (NULL)\n", curr->data);
-	} else {
-	    printf("%d -> ", curr->data);
-	}
+	*Head = *Head->Next;
+}
 
-	curr = curr->Next;
+size_t Filter(Node *Head, bool (*func)(Node*))
+{
+	size_t removed = 0;
+	Node *Prev = NULL;
+	Node *curr = Head;
+	
+	while(curr != NULL)
+    {
+		if(!func(curr))
+		{
+			// Remove it
+			if(curr == Head)
+			{
+				*Head = *(Head->Next);
+				removed++;
+				Prev = curr;
+				curr = curr->Next;
+				continue;
+
+			}
+
+			*(Prev->Next) = *(curr->Next);
+			removed++;
+		}
+		
+
+		Prev = curr;
+		curr = curr->Next;
+    }
+
+	return removed;
+}
+
+void map(Node *Head, void (*func)(Node*))
+{
+	Node *curr = Head;
+	
+	while(curr != NULL)
+    {
+		func(curr);
+		curr = curr->Next;
     }
 }
 
+void print(Node *Head)
+{
+   	void f(Node *Some)
+	{
+		if(Some->Next == NULL)
+		{
+	   		printf("%d -> (NULL)\n", Some->data);
+			return;
+		}			
+	
+		printf("%d -> ", Some->data);
+	}
+    
+    map(Head, f);
+}

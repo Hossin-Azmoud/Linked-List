@@ -24,26 +24,29 @@ void llist_t_remove(llist_t *l)
 
 void llist_t_log(llist_t *l)
 {
-	print(l->head);
+	return print(l->head);
 }
 
-void llist_t_map(llist_t *l)
+void llist_t_map(llist_t *l, void (*application)(Node *))
 {
-	(void) l;
-	assert(0 && "NOT IMPLEMENTED!");
-
+	return map(l->head, application);
 }
 
-void llist_t_filter(llist_t *l)
+void llist_t_filter(llist_t *l, bool (*predicate)(Node*))
 {
-	(void) l;
-	assert(0 && "NOT IMPLEMENTED!");
-
+	size_t r = filter(&(l->head), predicate);
+	l->count = l->count - r;
 }
 
 llist_t *new_llist_t()
 {
 	llist_t *l = malloc(sizeof(llist_t));
+	
+	if (l == NULL)
+	{
+		fprintf(stderr, "Could not allocate the llist in func `new_llist_t()`\n")
+		exit(1);
+	}
 
 	l->head  = NULL;
 	l->tail  = NULL;

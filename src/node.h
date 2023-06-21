@@ -17,7 +17,7 @@ Node   *find(Node *Head, int d);
 int    delete_by_data(Node *Head, int data);
 int    delete_by_index(Node *Head, int i);
 void   pop_head(Node *Head);
-size_t filter(Node *Head, bool (*func)(Node*));
+size_t filter(Node **Head, bool (*func)(Node*));
 void   map(Node *Head, void (*func)(Node*));
 void   insert(Node **Head, int data, int i);
 void   print(Node *Head);

@@ -9,7 +9,7 @@ int main(void)
     llist_t_add(l, 1);
     llist_t_add(l, 2);
 	llist_t_log(l);
-
 	free_list(&(l->head));
+	printf("success!\n");
 	return 0;
 }

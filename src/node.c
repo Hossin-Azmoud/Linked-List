@@ -164,11 +164,11 @@ void pop_head(Node *Head)
 	*Head = *Head->Next;
 }
 
-size_t filter(Node *Head, bool (*func)(Node*))
+size_t filter(Node **Head, bool (*func)(Node*))
 {
 	size_t removed = 0;
 	Node *Prev = NULL;
-	Node *curr = Head;
+	Node *curr = *Head;
 	
 	while(curr != NULL)
     {

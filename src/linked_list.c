@@ -44,7 +44,7 @@ llist_t *new_llist_t()
 	
 	if (l == NULL)
 	{
-		fprintf(stderr, "Could not allocate the llist in func `new_llist_t()`\n")
+		fprintf(stderr, "Could not allocate the llist in func `new_llist_t()`\n");
 		exit(1);
 	}
 

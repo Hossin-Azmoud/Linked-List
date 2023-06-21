@@ -175,9 +175,9 @@ size_t filter(Node **Head, bool (*func)(Node*))
 		if(!func(curr))
 		{
 			// Remove it
-			if(curr == Head)
+			if(curr == *Head)
 			{
-				*Head = *(Head->Next);
+				*Head = (*Head)->Next;
 				removed++;
 				Prev = curr;
 				curr = curr->Next;
